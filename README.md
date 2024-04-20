@@ -1,13 +1,13 @@
 # weather_app
 
-# Clone this Project by running below command
+# clone this Project by running below command
 git clone https://github.com/ramkshukla/weather_app.git
 
-# Install Flutter on your System, You can check by runnning below command
+# install Flutter on your System, You can check by runnning below command
 flutter doctor
 
-# On Root of the Project path, run the below command
-flutter pub get 
+# on Root of the Project path, run the below command to run app
+flutter pub get <br/>
 flutter run
 
 
