@@ -66,9 +66,18 @@ class _WeatherViewState extends State<WeatherView> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
             child: TextFormField(
               controller: textEditingController,
+              decoration: const InputDecoration(
+                hintText: "Enter location",
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                ),
+              ),
             ),
           ),
           const SizedBox(height: 40),
@@ -76,6 +85,7 @@ class _WeatherViewState extends State<WeatherView> {
             child: ElevatedButton(
               onPressed: () {
                 fetchWeatherData();
+                textEditingController.clear();
               },
               child: const Text("Get Weather"),
             ),
@@ -102,56 +112,58 @@ class _WeatherViewState extends State<WeatherView> {
                         color: Colors.blue.withOpacity(0.3),
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            textAlign: TextAlign.left,
-                            "City Name: ${snapshot.data!.weatherDescription[0].name}",
-                            style: const TextStyle(fontSize: 16),
-                          ),
-                          Text(
-                            textAlign: TextAlign.left,
-                            "Latitude: ${snapshot.data!.weatherDescription[0].coord.latitude}",
-                            style: const TextStyle(fontSize: 16),
-                          ),
-                          Text(
-                            textAlign: TextAlign.left,
-                            "Longitude: ${snapshot.data!.weatherDescription[0].coord.latitude}",
-                            style: const TextStyle(fontSize: 18),
-                          ),
-                          Text(
-                            textAlign: TextAlign.left,
-                            "Temperature: ${snapshot.data!.weatherDescription[0].main.temp}",
-                            style: const TextStyle(fontSize: 18),
-                          ),
-                          Text(
-                            textAlign: TextAlign.left,
-                            "Feels Like : ${snapshot.data!.weatherDescription[0].main.feelsLike}",
-                            style: const TextStyle(fontSize: 18),
-                          ),
-                          Text(
-                            textAlign: TextAlign.left,
-                            "High Temperature : ${snapshot.data!.weatherDescription[0].main.tempMax}",
-                            style: const TextStyle(fontSize: 18),
-                          ),
-                          Text(
-                            textAlign: TextAlign.left,
-                            "Minimum Temperature : ${snapshot.data!.weatherDescription[0].main.tempMin}",
-                            style: const TextStyle(fontSize: 18),
-                          ),
-                          Text(
-                            textAlign: TextAlign.left,
-                            "Pressure : ${snapshot.data!.weatherDescription[0].main.pressure}",
-                            style: const TextStyle(fontSize: 18),
-                          ),
-                          Text(
-                            textAlign: TextAlign.left,
-                            "Humidity: ${snapshot.data!.weatherDescription[0].main.humidity}",
-                            style: const TextStyle(fontSize: 18),
-                          )
-                        ],
-                      ),
+                      child: snapshot.data!.weatherDescription.isNotEmpty
+                          ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  textAlign: TextAlign.left,
+                                  "City Name: ${snapshot.data!.weatherDescription[0].name}",
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                                Text(
+                                  textAlign: TextAlign.left,
+                                  "Latitude: ${snapshot.data!.weatherDescription[0].coord.latitude}",
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                                Text(
+                                  textAlign: TextAlign.left,
+                                  "Longitude: ${snapshot.data!.weatherDescription[0].coord.latitude}",
+                                  style: const TextStyle(fontSize: 18),
+                                ),
+                                Text(
+                                  textAlign: TextAlign.left,
+                                  "Temperature: ${snapshot.data!.weatherDescription[0].main.temp}",
+                                  style: const TextStyle(fontSize: 18),
+                                ),
+                                Text(
+                                  textAlign: TextAlign.left,
+                                  "Feels Like : ${snapshot.data!.weatherDescription[0].main.feelsLike}",
+                                  style: const TextStyle(fontSize: 18),
+                                ),
+                                Text(
+                                  textAlign: TextAlign.left,
+                                  "High Temperature : ${snapshot.data!.weatherDescription[0].main.tempMax}",
+                                  style: const TextStyle(fontSize: 18),
+                                ),
+                                Text(
+                                  textAlign: TextAlign.left,
+                                  "Minimum Temperature : ${snapshot.data!.weatherDescription[0].main.tempMin}",
+                                  style: const TextStyle(fontSize: 18),
+                                ),
+                                Text(
+                                  textAlign: TextAlign.left,
+                                  "Pressure : ${snapshot.data!.weatherDescription[0].main.pressure}",
+                                  style: const TextStyle(fontSize: 18),
+                                ),
+                                Text(
+                                  textAlign: TextAlign.left,
+                                  "Humidity: ${snapshot.data!.weatherDescription[0].main.humidity}",
+                                  style: const TextStyle(fontSize: 18),
+                                )
+                              ],
+                            )
+                          : const Text("Data Not Available"),
                     );
                   } else if (snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');
